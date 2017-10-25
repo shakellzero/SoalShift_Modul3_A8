@@ -20,3 +20,8 @@ void *carikata(void *arg){
 	printf("%d\n",count);	
 }
 
+int main(int argc,char *argv[]){
+	pthread_create(&tid,NULL,carikata,(void*)argv);
+	pthread_join(tid,NULL);
+return 0;
+}
