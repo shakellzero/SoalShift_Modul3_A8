@@ -2,8 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <pthread.h>
 
-pthread_t tid;
+pthread_t tid[50];
+int urutan;
 
 void *carikata(void *arg){
 	char **inputan = (char**)arg;	
@@ -13,15 +15,17 @@ void *carikata(void *arg){
 	int i=0;
 	int count=0;
 	while (( x= fgetc(novel)) != EOF){
-		if(x==inputan[1][i]) i++;
-		else if(i==strlen(inputan[1])) { count++;}		
+		if(x==inputan[urutan][i]) i++;
+		else if(i==strlen(inputan[urutan])) { count++; i=0;}		
 		else i=0;
 	}
-	printf("%d\n",count);	
+	printf("%s : %d\n",inputan[urutan],count);	
 }
 
 int main(int argc,char *argv[]){
-	pthread_create(&tid,NULL,carikata,(void*)argv);
-	pthread_join(tid,NULL);
+	for(urutan=1;urutan<argc;urutan++){
+	pthread_create(&tid[urutan],NULL,carikata,(void*)argv);
+	pthread_join(tidg,NULL);
+	}
 return 0;
 }
