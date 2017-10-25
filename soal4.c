@@ -1,20 +1,23 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <pthread.h>
 
 void *faktorial(void *);
 int total=1;
 
-main()
+main(int argc,const char *argv[])
 {
-	int number;
+	int number,i;
 	pthread_t t;
-	printf("Masukkan angka yang akan difaktorialkan : ");
-	scanf("%d", &number);
+	for(i=1;i<argc;i++){
+	number = atoi(argv[i]);
 
 	pthread_create(&t,NULL,faktorial,(void *)&number);
 	pthread_join(t,NULL);
 
-	printf("Hasil dari faktorial adalah  %d \n", total);
+	printf("%d\n", total);
+	total = 1;
+	}
 }
 
 void *faktorial(void *no)
