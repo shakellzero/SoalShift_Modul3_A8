@@ -25,7 +25,7 @@ void *carikata(void *arg){
 int main(int argc,char *argv[]){
 	for(urutan=1;urutan<argc;urutan++){
 	pthread_create(&tid[urutan],NULL,carikata,(void*)argv);
-	pthread_join(tidg,NULL);
+	pthread_join(tid[urutan],NULL);
 	}
 return 0;
 }
